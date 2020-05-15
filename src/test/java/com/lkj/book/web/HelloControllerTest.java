@@ -1,65 +1,62 @@
 package com.lkj.book.web;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
+/*
+ * @SpringBootTest의 경우 일반적인 테스트로 전체 응용 프로그램 컨텍스트를 시작함.
+ * 따라서 전체 응용 프로그램을 로드하여 모든 bean을 주입하기 때문에 속도가 느림.
+ * @WebMvcTest의 경우는 Controller layer를 테스트하고 모의 객체를 사용하기 때문에 나머지 필요한 bean을 직접 세팅.
+ * 그렇기 때문에 가볍고 빠르게 테스트 가능.
+ */
+@WebMvcTest(HelloController.class)
 class HelloControllerTest {
 
     @Autowired
-    private WebApplicationContext webApplicationContext; //전체 webContext를 가져와서 동작 -> 따로 Controller 등록할 필요 X
-
     private MockMvc mockMvc;
 
-    @BeforeEach
-    void beforeEach() {
-
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .alwaysDo(print())
-                .build();
-    }
-
     @Test
-    void hello_테스트() throws Exception {
+    public void hello가_리턴된다() throws Exception {
+        //given
+        String hello = "hello";
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/hello"))
-                .andDo(print()) //실행 결과에 대한 출력 -> 테스트에 대한 구체적 정보 확인
+        //when
+        ResultActions resultActions = mockMvc.perform(get("/hello"))
+                .andDo(print());
+
+        //then
+        resultActions
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("hello"));
+                .andExpect(content().string("hello"));
     }
 
     @Test
-    void helloDto_테스트() throws Exception {
+    public void helloDto가_리턴된다() throws Exception {
 
+        //given
         String name = "hello";
         int amount = 1000;
 
-        //param -> 테스트에 사용될 파라미터 설정
-        //단 String만 허용 -> 숫자/날자 등의 데이터도 문자열로 변경해야함
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/hello/dto")
-                        .param("name", name)
-                        .param("amount", String.valueOf(amount)))
-                .andDo(print())
+        //when
+        ResultActions resultActions = mockMvc.perform(get("/hello/dto")
+                .param("name", name)
+                .param("amount", String.valueOf(amount)))
+                .andDo(print());
+
+        //then
+        resultActions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(name)))
                 .andExpect(jsonPath("$.amount", is(amount)));
     }
-
 }

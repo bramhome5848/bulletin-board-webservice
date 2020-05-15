@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/bulletin
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    properties:
+      hibernate:
+        #show_sql: true   #logging쪽과 차이점은 show-sql은 systemout으로 출력, logging은 log로
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect  #DB 방언
+
+logging.level:
+  org.hibernate.SQL: debug    #jpa/hibernate 가 생성하는 모든 sql을 눈으로 확인가능
+  #org.hibernate.type: trace   #SQL 실행 파라미터를 로그로 남긴다
