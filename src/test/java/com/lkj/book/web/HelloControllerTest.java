@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 그렇기 때문에 가볍고 빠르게 테스트 가능.
  */
 @WebMvcTest(HelloController.class)
-class HelloControllerTest {
+public class HelloControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

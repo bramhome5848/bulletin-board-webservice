@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class HelloResponseDtoTest {
+public class HelloResponseDtoTest {
 
     @Test
     public void 롬복_기능_테스트() {
