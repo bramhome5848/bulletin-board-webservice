@@ -2,12 +2,17 @@ package com.lkj.book.service.posts;
 
 import com.lkj.book.domain.posts.Posts;
 import com.lkj.book.domain.posts.PostsRepository;
+import com.lkj.book.web.dto.PostsListResponseDto;
 import com.lkj.book.web.dto.PostsResponseDto;
 import com.lkj.book.web.dto.PostsSaveRequestDto;
 import com.lkj.book.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,4 +43,20 @@ public class PostsService {
 
         return new PostsResponseDto(entity);
     }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDsc() {
+        return postsRepository.findAllDsc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete (Long id) {
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
+
+        postsRepository.delete(posts);
+    }
+
 }
