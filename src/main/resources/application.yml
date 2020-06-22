@@ -1,21 +1,17 @@
 spring:
-  profiles:
-    include: oauth
+  h2:
+    console:
+      enabled: true
   session:
     store-type: jdbc
-  datasource:
-    url: jdbc:h2:tcp://localhost/~/bulletin
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
   jpa:
-    hibernate:
-      #ddl-auto: create
     properties:
       hibernate:
         #show_sql: true   #logging쪽과 차이점은 show-sql은 systemout으로 출력, logging은 log로
         format_sql: true
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect  #DB 방언
+  profiles:
+    include: oauth
 
 logging.level:
   org.hibernate.SQL: debug    #jpa/hibernate 가 생성하는 모든 sql을 눈으로 확인가능

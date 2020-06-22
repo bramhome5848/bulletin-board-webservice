@@ -24,7 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'com.h2database:h2'
+	implementation 'com.h2database:h2:1.4.199'
 
 	compileOnly 'org.projectlombok:lombok'
 	compile 'org.springframework.session:spring-session-jdbc'
