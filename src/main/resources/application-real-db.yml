@@ -3,7 +3,7 @@ spring:
     hibernate:
       ddl-auto: none
   datasource:
-    url: jdbc:mariadb://bulletin-board-webservice.coll6tt06abq.ap-northeast-2.rds.amazonaws.com:3306/bulletin-board-webservice
+    url: jdbc:mariadb://bulletin-board-webservice.coll6tt06abq.ap-northeast-2.rds.amazonaws.com:3306/bulletin_board_webservice
     username: bramhome5848
     password: lkj98048291
     driver-class-name: org.mariadb.jdbc.Driver
