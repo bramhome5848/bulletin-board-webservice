@@ -21,9 +21,6 @@ public class ProfileController {
         //여기서 real, real1, real2 모두 배포에 사용될 profile이라 이중 하나라도 있으면
         //그 값을 반환
         List<String> profiles = Arrays.asList(env.getActiveProfiles());
-        System.out.println("-----------------");
-        System.out.println(profiles);
-        System.out.println("-----------------");
         List<String> realProfiles = Arrays.asList("real", "real1", "real2");
         String defaultProfile = profiles.isEmpty()? "default" : profiles.get(0);
 

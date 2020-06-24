@@ -11,7 +11,7 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect  #DB 방언
   profiles:
-#    include: oauth
+    include: oauth
 
 logging.level:
   org.hibernate.SQL: debug    #jpa/hibernate 가 생성하는 모든 sql을 눈으로 확인가능
