@@ -1,0 +1,6 @@
+version : 0.0 #CodeDeploy 버전, 0.0이외에 다른 버전사용시 오류
+os : linux
+files:
+  - source : /  #CodeDeploy에서 전달해 준 파일 중 destination으로 이동시킬 대상 지정, 루트 경로 지정시 전체 파일
+    destination: /home/ec2-user/app/step2/zip/  # source에서 지정된 파일을 받을 위치
+    overwrite: yes
