@@ -1,0 +1,13 @@
+spring:
+  session:
+    store-type: jdbc
+  profiles:
+    include: oauth,real-db
+  jpa:
+    properties:
+      hibernate:
+        #show_sql: true   #logging쪽과 차이점은 show-sql은 systemout으로 출력, logging은 log로
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect  #DB 방언
+server:
+  port: 8081
